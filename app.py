@@ -39,7 +39,7 @@ if question := st.chat_input("Enter your specific question..."):
             st.write("🕵️ Agents are processing the request...")
             
             try:
-                API_URL = "https://emergent-ai-backend.onrender.com/run-session"
+                API_URL = "https://emergent-ai-system.onrender.com/run-session"
                 
                 response = requests.post(
                     API_URL, 
