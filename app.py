@@ -1,69 +1,3 @@
-# import streamlit as st
-# import requests
-
-# st.set_page_config(page_title="Emergent AI Tutor", layout="wide")
-# st.title("Collaborative Multi-Agent Educational AI")
-# st.markdown("An implementation of a six-agent educational system to track emergent behaviors.")
-
-# # Sidebar for inputs
-# with st.sidebar:
-#     st.header("Student Input")
-#     topic = st.text_input("Topic (e.g., Quadratic Equations):", "Photosynthesis")
-#     question = st.text_area("Specific Question:", "Explain how light intensity affects the rate of photosynthesis and show a mathematical relationship if any.")
-#     submit_btn = st.button("Run Multi-Agent Pipeline")
-
-# if submit_btn:
-#     with st.spinner("Orchestrating agents... Please wait."):
-#         # Note: Update this URL to your Render URL during deployment (Step 9)
-#         API_URL = "http://127.0.0.1:8000/run-session" 
-#         try:
-#             response = requests.post(API_URL, json={"topic": topic, "question": question})
-#             response.raise_for_status()
-#             data = response.json()
-            
-#             st.success("Pipeline executed successfully!")
-            
-#             # Display Agent Outputs using columns and expanders
-#             st.subheader("Agent Outputs")
-            
-#             with st.expander("1. Tutor Agent (Concept Explainer)", expanded=True):
-#                 st.write(data.get("tutor_output"))
-                
-#             with st.expander("2. Problem Solver Agent (Step-by-Step)"):
-#                 st.write(data.get("solver_output"))
-                
-#             with st.expander("3. Evaluator Agent (Critical Review)"):
-#                 st.write(data.get("evaluator_output"))
-                
-#             with st.expander("4. Feedback Agent (Synthesis)"):
-#                 st.write(data.get("feedback_output"))
-                
-#             with st.expander("5. Planner Agent (Learning Plan)"):
-#                 st.write(data.get("planner_output"))
-                
-#             # Display Emergence Detection Logs
-#             st.divider()
-#             st.subheader("System Emergence & Diagnostics")
-#             col1, col2 = st.columns(2)
-            
-#             with col1:
-#                 st.markdown("**Emergent Behaviors Detected:**")
-#                 flags = data.get("emergence_flags", [])
-#                 if not flags:
-#                     st.write("No specific emergent patterns detected in this session.")
-#                 for flag in flags:
-#                     if "[POSITIVE]" in flag:
-#                         st.success(flag)
-#                     else:
-#                         st.error(flag)
-                        
-#             with col2:
-#                 st.markdown("**Pipeline Execution Log:**")
-#                 for log in data.get("pipeline_log", []):
-#                     st.code(log)
-                    
-#         except Exception as e:
-#             st.error(f"Failed to connect to backend: {e}")
 
 import streamlit as st
 import requests
@@ -105,7 +39,7 @@ if question := st.chat_input("Enter your specific question..."):
             st.write("🕵️ Agents are processing the request...")
             
             try:
-                API_URL = "http://127.0.0.1:8000/run-session"
+                API_URL = "[https://emergent-ai-system.onrender.com/](https://emergent-ai-system.onrender.com/)"
                 
                 response = requests.post(
                     API_URL, 
