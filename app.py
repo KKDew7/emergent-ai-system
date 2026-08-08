@@ -1,4 +1,3 @@
-
 # import streamlit as st
 # import requests
 
@@ -39,6 +38,7 @@
 #             st.write("🕵️ Agents are processing the request...")
             
 #             try:
+#                 # Connected to your specific live Render backend
 #                 API_URL = "https://emergent-ai-system.onrender.com/run-session"
                 
 #                 response = requests.post(
@@ -88,15 +88,22 @@
 #         # Display the raw agent data inside an expander
 #         if agent_metrics:
 #             with st.expander("🔍 View Multi-Agent Breakdown (Flags & Raw Outputs)"):
-#                 st.write("**Emergence Flags:**")
+#                 st.write("**System Analysis & Emergence Flags:**")
+                
+#                 # Render the explanations with color coding based on the tag
 #                 for flag in agent_metrics.get("Emergence Flags", []):
 #                     if "[POSITIVE]" in flag:
 #                         st.success(flag)
-#                     else:
+#                     elif "[NEGATIVE]" in flag:
 #                         st.error(flag)
+#                     else:
+#                         st.info(flag) # Catches the new [INFO] explanations for neutral events
+                        
+#                 st.markdown("---")
 #                 st.write("**Pipeline Execution Logs:**")
 #                 for log in agent_metrics.get("Pipeline Logs", []):
 #                     st.code(log)
+                    
 #                 st.write("**Raw Agent Outputs:**")
 #                 st.json(agent_metrics)
                 
@@ -157,15 +164,20 @@ if question := st.chat_input("Enter your specific question..."):
                 if response.status_code == 200:
                     data = response.json()
                     
+                    tutor_text = data.get("tutor_output", "No context generated.")
+                    solver_text = data.get("solver_output", "No solution generated.")
                     feedback_text = data.get("feedback_output", "No feedback generated.")
                     planner_text = data.get("planner_output", "No plan generated.")
                     examiner_text = data.get("examiner_output", "No examiner verdict.")
                     
-                    # Combine Feedback, Planner, and the new Examiner output for the main chat UI
+                    # We now include the Tutor and Solver at the very top so it answers the question first!
                     full_response = (
-                        f"**Synthesized Feedback:**\n{feedback_text}\n\n"
-                        f"**Study Plan:**\n{planner_text}\n\n"
-                        f"--- \n"
+                        f"### 📚 Tutor Introduction\n{tutor_text}\n\n"
+                        f"### ⚙️ Technical Solution\n{solver_text}\n\n"
+                        f"---\n"
+                        f"**🗣️ Synthesized Feedback:**\n{feedback_text}\n\n"
+                        f"**📅 Study Plan:**\n{planner_text}\n\n"
+                        f"---\n"
                         f"🏛️ **University Examiner Verdict:**\n{examiner_text}"
                     )
                     
