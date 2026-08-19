@@ -11,7 +11,7 @@ def call_llm(system_prompt, user_message, temperature):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message}
         ],
-        model="llama3-70b-8192",
+        model="qwen/qwen3.6-27b",
         temperature=temperature
     )
     return chat_completion.choices[0].message.content
